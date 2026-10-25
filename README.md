@@ -4,6 +4,19 @@ Aplikasi katalog sepatu dengan Java Servlet/JSP, JDBC, dan SQL Server. Pengunjun
 
 Proyek ini melanjutkan **ShoeStoreWeb** versi NetBeans. Ini berbeda dari repo `shoe-store-crud-` yang memakai Java Swing dan `shoestore3` yang berupa website statis.
 
+![Beranda ShoeStore dengan foto sepatu dan tautan ke katalog](docs/images/home.png)
+
+*Tampilan demo lokal dengan data contoh sintetis.*
+
+<details>
+<summary>Lihat pengelolaan sepatu</summary>
+
+![Halaman admin ShoeStore dengan ukuran, harga, stok, serta tindakan ubah dan hapus](docs/images/admin-shoes.png)
+
+*Setiap baris produk contoh mewakili satu ukuran sepatu.*
+
+</details>
+
 ## Mulai dengan Docker
 
 Siapkan Docker Desktop dengan Linux containers dan Docker Compose. SQL Server memerlukan image yang cukup besar dan alokasi memori container 2 GiB. Jalankan demo ini bergantian dengan aplikasi database lain pada laptop dengan memori terbatas.
