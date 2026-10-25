@@ -99,6 +99,8 @@ src/main/webapp/assets/    CSS, JavaScript, lima foto sumber
 src/test/java/            tes tanpa database
 ```
 
+[Alur kode dan diagram](docs/CODE_FLOW.md) menjelaskan controller, akses akun, keranjang sesi, simulasi checkout, dan perubahan admin pada database.
+
 Bypass admin hardcoded, tampilan password mentah, SQL di JSP, penghapusan lewat GET, dan referensi handler yang tidak ada sudah diganti. Alur baru memakai prepared statement, resource JDBC tertutup, session cookie `SHOESTORE_WEB_SESSION`, token CSRF pada POST, pemeriksaan peran, dan PBKDF2-HMAC-SHA256 dengan salt acak serta 600.000 iterasi. Tidak ada migrasi otomatis password atau data lama.
 
 Foto produk dan arah putih/hitam dengan aksen oranye dipertahankan. Slider, review contoh yang tidak terverifikasi, dan tautan kosong pada sumber diganti dengan navigasi ke katalog yang dikelola. Tampilan memuat state kosong, pengiriman, dan kesalahan; menu serta formulir dapat dijangkau dengan keyboard.
