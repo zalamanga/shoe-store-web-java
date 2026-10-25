@@ -1,0 +1,15 @@
+ShoeStore Web Java
+
+Adapted from the local Java Servlet/JSP project ShoeStoreWeb.
+The original index.jsp and index_1.jsp footer credits "Kelompok 1".
+Original photo bytes retained:
+  web/img/slide/1.png -> assets/hero.png
+  web/img/product1/1.jpg -> assets/product1-1.jpg
+  web/img/product2/1.jpg -> assets/product2-1.jpg
+  web/img/product3/1.jpg -> assets/product3-1.jpg
+  web/img/product4/1.jpg -> assets/product4-1.jpg
+
+No LICENSE file or Git remote was present in the inspected local source.
+This adaptation does not make a new license grant or ownership claim for the
+original source or photos. Depicted trademarks remain with their owners;
+the demo does not claim affiliation. Dependencies retain their own licenses.

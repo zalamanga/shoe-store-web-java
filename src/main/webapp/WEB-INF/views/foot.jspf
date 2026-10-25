@@ -1,0 +1,7 @@
+</main>
+<footer>
+  <p>ShoeStore <span>Katalog dan keranjang untuk demo lokal.</span></p>
+  <a href="${pageContext.request.contextPath}/about">Tentang dan penggunaan data</a>
+</footer>
+</body>
+</html>

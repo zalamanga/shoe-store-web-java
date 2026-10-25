@@ -1,0 +1,63 @@
+services:
+  db:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    mem_limit: 2g
+    environment:
+      ACCEPT_EULA: "Y"
+      MSSQL_PID: Developer
+      MSSQL_MEMORY_LIMIT_MB: 1024
+      MSSQL_SA_PASSWORD: ${MSSQL_SA_PASSWORD:?Isi MSSQL_SA_PASSWORD di .env}
+    ports:
+      - "127.0.0.1:${SQL_PORT:-14344}:1433"
+    volumes:
+      - database:/var/opt/mssql
+    healthcheck:
+      test:
+        - CMD-SHELL
+        - >-
+          /opt/mssql-tools18/bin/sqlcmd -S localhost -U sa -P "$$MSSQL_SA_PASSWORD" -C -b
+          -Q "IF DB_ID(N'shoestore') IS NULL SELECT 1 ELSE EXEC(N'USE shoestore; SELECT 1')"
+          -o /dev/null
+      interval: 10s
+      timeout: 5s
+      retries: 25
+      start_period: 30s
+  db-init:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    mem_limit: 256m
+    user: root
+    environment:
+      MSSQL_SA_PASSWORD: ${MSSQL_SA_PASSWORD:?Isi MSSQL_SA_PASSWORD di .env}
+      DB_PASSWORD: ${DB_PASSWORD:?Isi DB_PASSWORD di .env}
+    volumes:
+      - ./database:/bootstrap:ro
+    entrypoint: [/bin/bash, /bootstrap/init.sh]
+    depends_on:
+      db:
+        condition: service_healthy
+  app:
+    build: .
+    mem_limit: 512m
+    ports:
+      - "127.0.0.1:${APP_PORT:-18097}:8080"
+    environment:
+      DB_HOST: db
+      DB_PORT: 1433
+      DB_NAME: shoestore
+      DB_USER: shoestore_app
+      DB_PASSWORD: ${DB_PASSWORD:?Isi DB_PASSWORD di .env}
+      DB_TRUST_CERTIFICATE: "true"
+      ADMIN_USERNAME: ${ADMIN_USERNAME:?Isi ADMIN_USERNAME di .env}
+      ADMIN_PASSWORD: ${ADMIN_PASSWORD:?Isi ADMIN_PASSWORD di .env}
+      JAVA_OPTS: -Xms64m -Xmx320m
+    depends_on:
+      db-init:
+        condition: service_completed_successfully
+    healthcheck:
+      test: [CMD-SHELL, 'curl -fsS http://127.0.0.1:8080/health >/dev/null || exit 1']
+      interval: 10s
+      timeout: 5s
+      retries: 18
+      start_period: 20s
+volumes:
+  database:
